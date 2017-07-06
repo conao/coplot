@@ -1,0 +1,11 @@
+* What this
+coplot is blilliant plot tool for MATLAB.
+shortest code to plot data with MATLAB.
+* How to use
+** basic
+Make 'Tab' separeted csv and some configures in 'same' csv file.
+** Label
+*** =:xlim= =:ylim= Label
+Configure x, y limit
+* Class diagram
+[[./class.png]]

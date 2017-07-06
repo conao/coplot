@@ -1,0 +1,32 @@
+#+BEGIN_SRC plantuml :file ./class.png :cmdline -charset UTF-8
+  class Copar {
+  fileid : int
+
+  Copar () : Copar
+  openfile (filepath : String) : String
+  parse () : void
+  }
+
+  class CoargCoodinator {
+
+  CoargCoodinator () : CoargCoodinator
+  insertarg (target : Coarg) : void
+  deletearg (key : String) : void
+  getarg (key : String) : void
+  appendValues (key : String, values : [String]) : void
+  getkeys () : [String]
+  }
+
+  class Coarg {
+  key : String
+  values : [String]
+
+  Coarg (key : String, values : [String]) : Coarg
+  }
+
+  Copar - CoargCoodinator
+  CoargCoodinator o- Coarg
+#+END_SRC
+
+#+RESULTS:
+[[file:./class.png]]
