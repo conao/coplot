@@ -20,7 +20,16 @@ classdef Copar < handle
             end
         end
         
-        function parse()
+        function parse(obj)
+            rawdata = textscan(file, '%s', 'Delimiter', '\n');
+            rawdata = string(rawdata{:});
+            
+            rawline = strjoin(rawdata);
+            [rawarg, nomatch] = regexp(rawline, '\/\*(\S*\s*)*\*\/', 'match', 'split');
+            
+            nomatch = strjoin(nomatch);
+            nomatch = regexp(nomatch, '\/n', 'split');
+            rawdata = nomatch';
         end
     end
 end
