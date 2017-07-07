@@ -21,11 +21,11 @@ classdef Copar < handle
         end
         
         function parse(obj)
-            rawdata = textscan(file, '%s', 'Delimiter', '\n');
-            rawdata = string(rawdata{:});
+            rawtxt = textscan(file, '%s', 'Delimiter', '\n');
+            rawtxt = string(rawtxt{:});
             
-            rawline = join(rawdata, '/n');
-            rawline = regexprep(rawline, '(\/n){2,}', '/n');
+            rawline = join(rawtxt, '/n');
+            %rawline = regexprep(rawline, '(\/n){2,}', '/n');
             [rawarg, rawdata] = regexp(rawline, '\/\*.*?\*\/', 'match', 'split');
             
             rawdata = join(rawdata);
