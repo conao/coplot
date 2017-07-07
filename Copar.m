@@ -5,6 +5,7 @@ classdef Copar < handle
     
     methods
         function obj = Copar()
+            % no init code.
         end
         
         function openfile(filepath)
