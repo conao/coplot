@@ -25,6 +25,18 @@ classdef CoargCoodinator < handle
             obj.coarg(inx).values = cat(2, obj.coarg(inx).values, values);
         end
         
+        function inx = isexist(obj, key)
+            % this function occur noerror when noexist Coarg object
+            % assumed Coarg exist, use getarg.
+            % getarg occur error and stop when noexist Coarg object
+            
+            try
+                [~, inx] = getarg(obj, key);
+            catch
+                inx = 0;
+            end
+        end
+        
         function [target, inx] = getarg(obj, key)
             inx = find(strcmp({obj.key}, key));
             if inx
