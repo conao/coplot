@@ -21,7 +21,13 @@ classdef CoargCoodinator < handle
         function appendValues(key, values)
         end
         
-        function getarg(key)
+        function [target, inx] = getarg(obj, key)
+            inx = find(strcmp({obj.key}, key));
+            if inx
+                target = obj(inx);
+            else
+                error('%s is not exist in CoargCoodinator', key);
+            end
         end
         
         function keys = getkeys(obj)
