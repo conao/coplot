@@ -18,7 +18,9 @@ classdef CoargCoodinator < handle
         function deletearg(key)
         end
         
-        function appendValues(key, values)
+        function appendValues(obj, key, values)
+            [~, inx] = getarg(key);
+            obj.coarg(inx).values = cat(2, obj.coarg(inx).values, values);
         end
         
         function [target, inx] = getarg(obj, key)
