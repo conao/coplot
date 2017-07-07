@@ -18,13 +18,16 @@ classdef CoargCoodinator < handle
         function deletearg(key)
         end
         
-        function getarg(key)
-        end
-        
         function appendValues(key, values)
         end
         
-        function keys = getkeys()
+        function getarg(key)
+        end
+        
+        function keys = getkeys(obj)
+            tmp = cell(1, length(obj.coarg));
+            [tmp{:}] = obj.coarg.key;
+            keys = string(tmp);
         end
     end
 end
