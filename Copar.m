@@ -24,12 +24,13 @@ classdef Copar < handle
             rawdata = textscan(file, '%s', 'Delimiter', '\n');
             rawdata = string(rawdata{:});
             
-            rawline = strjoin(rawdata);
-            [rawarg, nomatch] = regexp(rawline, '\/\*(\S*\s*)*\*\/', 'match', 'split');
+            rawline = join(rawdata, '/n');
+            rawline = regexprep(rawline, '(\/n){2,}', '/n');
+            [rawarg, rawdata] = regexp(rawline, '\/\*.*?\*\/', 'match', 'split');
             
-            nomatch = strjoin(nomatch);
-            nomatch = regexp(nomatch, '\/n', 'split');
-            rawdata = nomatch';
+            rawdata = join(rawdata);
+            rawdata = regexp(rawdata, '\/n', 'split');
+            rawdata = rawdata';
         end
     end
 end
