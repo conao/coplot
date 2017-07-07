@@ -8,7 +8,8 @@ classdef Copar < handle
             % no init code.
         end
         
-        function openfile(filepath)
+        function openfile(obj, filepath)
+            obj.fileid = fopen(filepath, 'r', 'a', 'UTF-8');
         end
         
         function parse()
