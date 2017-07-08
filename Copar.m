@@ -28,9 +28,17 @@ classdef Copar < handle
             %rawline = regexprep(rawline, '(\/n){2,}', '/n');
             [rawarg, rawdata] = regexp(rawline, '\/\*.*?\*\/', 'match', 'split');
             
+            %% data consist
             rawdata = join(rawdata);
             rawdata = regexp(rawdata, '\/n', 'split');
             rawdata = rawdata';
+            
+            cellfind = regexp(rawdata, '^\s*$', 'emptymatch');
+            logicalfind = cellfun(@(x) any(x), cellfind, 'UniformOutput', false);
+            rawdata(logicalfind) = [];
+            
+            celldata = regexp(rawdata, '\t', 'split');
+            
         end
     end
 end
