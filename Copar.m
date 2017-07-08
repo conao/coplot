@@ -21,7 +21,7 @@ classdef Copar < handle
         end
         
         function parse(obj)
-            rawtxt = textscan(file, '%s', 'Delimiter', '\n');
+            rawtxt = textscan(obj.fileid, '%s', 'Delimiter', '\n');
             rawtxt = string(rawtxt{:});
             
             rawline = join(rawtxt, '/n');
@@ -29,14 +29,18 @@ classdef Copar < handle
             [rawarg, rawdata] = regexp(rawline, '\/\*.*?\*\/', 'match', 'split');
             
             %% data consist
+            % init
             rawdata = join(rawdata);
-            rawdata = regexp(rawdata, '\/n', 'split');
+            rawdata = strsplit(rawdata, '/n');
             rawdata = rawdata';
             
+            % delete null row
             cellfind = regexp(rawdata, '^\s*$', 'emptymatch');
-            logicalfind = cellfun(@(x) any(x), cellfind, 'UniformOutput', false);
+            celllogicalfind = cellfun(@(x) any(x), cellfind, 'UniformOutput', false);
+            logicalfind = cell2mat(celllogicalfind);
             rawdata(logicalfind) = [];
             
+            % make matrix data
             celldata = regexp(rawdata, '\t', 'split');
             
         end
