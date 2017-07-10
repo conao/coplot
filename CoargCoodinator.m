@@ -9,7 +9,9 @@ classdef CoargCoodinator < handle
         
         function insertarg(obj, target)
             if isa(target, 'Coarg')
-                if obj.isexist(target.key)
+                if isempty(obj.coarg)
+                    obj.coarg = target;
+                elseif obj.isexist(target.key)
                     obj.appendValues(key, target.values)
                 else
                     obj.coarg(length(obj.coarg) + 1) = target;
