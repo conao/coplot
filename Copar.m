@@ -1,17 +1,17 @@
 classdef Copar < handle
     properties (GetAccess=public, SetAccess=private)
+        path = '';
         fileid = 0;
         data = [];
-        argcoodinator = CoargCoodinator;
+        argcoodinator = CoargCoodinator();
     end
     
     methods
-        function obj = Copar()
-            % no init code.
-        end
-        
-        function openfile(obj, filepath)
-            obj.fileid = fopen(filepath, 'r', 'a', 'UTF-8');
+        function obj = Copar(filepath)
+            if nargin ~= 0
+                obj.path = filepath;
+                obj.fileid = fopen(filepath, 'r', 'a', 'UTF-8');
+            end
         end
         
         function closefile(obj)

@@ -12,7 +12,7 @@ classdef CoargCoodinator < handle
                 if isempty(obj.coarg)
                     obj.coarg = target;
                 elseif obj.isexist(target.key)
-                    obj.appendValues(key, target.values)
+                    obj.appendValues(target.key, target.values)
                 else
                     obj.coarg(length(obj.coarg) + 1) = target;
                 end
@@ -44,9 +44,9 @@ classdef CoargCoodinator < handle
         end
         
         function [target, inx] = getarg(obj, key)
-            inx = find(strcmp({obj.key}, key));
+            inx = find(strcmp(string({obj.coarg.key}), key));
             if inx
-                target = obj(inx);
+                target = obj.coarg(inx);
             else
                 error('%s is not exist in CoargCoodinator', key);
             end

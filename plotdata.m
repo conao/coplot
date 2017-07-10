@@ -1,40 +1,24 @@
-%% coplot is briliant plot tool.
-% coplot is require 'filepath'
-% return fitting constant
-
-function coplot(filepaths)
-    % openfile
-    copar = arrayfun(@(x) Copar(x), filepaths, 'UniformOutput', false);
-    
-    % delete openfailed copar
-    nullinx = cellfun(@(x) x.fileid == -1, copar);
-    warning('failed openfile at: %s', join(filepaths(nullinx),' :'));
-    copar(nullinx) = [];
-    
-    % parse
-    % cellfun(@(x) x.parse, copar);
-    
-    % plotdata
-    cellfun(@plotdata, copar);
-end
-
-function plotdata(copar, vargin)
+function plotdata(copar, varargin)
     p = inputParser;
     defaultFignum = 80;
     addOptional(p,'fignum',defaultFignum,@isnumeric);
-    parse(p, vargin{:});
+    parse(p, varargin{:});
     
     % init figure window
     fig = figure(p.Results.fignum);
     clf(p.Results.fignum);
     
     % init filename
-    filename = regexp(filepath, '[^/]*$', 'match');
+    filename = regexp(copar.path, '[^/]*$', 'match');
     filename = regexp(filename, '^[^.]+', 'match');
     
+    if iscell(filename)
+        filename = filename{1};
+    end
+    
     % parse data
-    copar.parse;
-    copar.closefile;
+    % copar.parse;
+    % copar.closefile;
     
     data = copar.data;
     coodinator = copar.argcoodinator;
@@ -68,10 +52,10 @@ function plotdata(copar, vargin)
     for k = 1:length(lcol)
         % plot data
         line = plot(x, data(:,lcol(k)));
-        line_settings(line, 'none', line_symbol(k-1));
+        line_settings(line, 'none', line_symbol(k));
         
         % fitting
-        p = polyfit(x);
+        p = polyfit(x, data(:,lcol(k)), coodinator.getarg('polyfit').values);
         py = polyval(p,x);
         line = plot(x, py);
         disp(p);
@@ -100,15 +84,16 @@ function plotdata(copar, vargin)
     if coodinator.isexist('label')
         labels = coodinator.getarg('label').values;
         for k = 1:length(labels)
-            targetlabel(1+(k-1)*2) = label(k);
-            targetlabel(2+(k-1)*2) = strcat(label(k), '‹ßŽ—');
+            targetlabel(1+(k-1)*2) = labels(k);
+            targetlabel(2+(k-1)*2) = strcat(labels(k), '‹ßŽ—');
         end
         legend(targetlabel);
     end
     
     fig.PaperUnits = 'points';
     fig.PaperPosition = [0 0 1200, 800];
-    saveas(fig, strcat(filename,'.png'));
+    disp(strcat(filename,'.png'));
+    saveas(fig, strcat(char(filename), '.png'));
 end
 
 function line_settings(line, line_style, marker)
@@ -116,14 +101,3 @@ function line_settings(line, line_style, marker)
     line.Marker = marker;
     line.Color = 'k';
 end
-
-
-
-
-
-
-
-
-
-
-
