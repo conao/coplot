@@ -1,6 +1,9 @@
 classdef Copar < handle
     properties (GetAccess=public, SetAccess=private)
         fileid = 0;
+        data = [];
+        arg = [];
+        coodinator = CoargCoodinator;
     end
     
     methods
@@ -28,21 +31,55 @@ classdef Copar < handle
             %rawline = regexprep(rawline, '(\/n){2,}', '/n');
             [rawarg, rawdata] = regexp(rawline, '\/\*.*?\*\/', 'match', 'split');
             
-            %% data consist
+            parseData(rawdata);
+            parseArg(rawarg);
+        end
+        
+        function parseData(obj, rawdata)
             % init
             rawdata = join(rawdata);
             rawdata = strsplit(rawdata, '/n');
             rawdata = rawdata';
             
             % delete null row
-            cellfind = regexp(rawdata, '^\s*$', 'emptymatch');
-            celllogicalfind = cellfun(@(x) any(x), cellfind, 'UniformOutput', false);
-            logicalfind = cell2mat(celllogicalfind);
-            rawdata(logicalfind) = [];
+            rawdata = deleteNullRow(rawdata);
             
             % make matrix data
             celldata = regexp(rawdata, '\t', 'split');
+            cellsplitdata = cellfun(@(x) join(x), celldata, 'UniformOutput', false);
+            obj.data = str2double(char(cellsplitdata));
+        end
+        
+        function result = parseArg(obj, rawarg)
+            % init
+            rawarg = join(rawarg);
+            rawarg = strrep(strrep(rawarg, '/*', ''), '*/', '');
+            rawarg = strrep(rawarg, '/n', ' ');
+            rawarg = strsplit(rawarg, ':');
+            rawarg = rawarg';
             
+            % delete null row
+            rawarg = deleteNullRow(rawarg);
+            
+            % make matrix data
+            celldata = regexp(rawarg, '\s', 'split');
+            
+            
+            % tmp
+            obj.arg = [];
+        end
+        
+        function coarg = recognizeArg(celldata)
+            coarg = Coarg;
+            disp(celldata);
+        end
+        
+        function result = deleteNullRow(~, target)
+            cellfind = regexp(target, '^\s*$', 'emptymatch');
+            celllogicalfind = cellfun(@(x) any(x), cellfind, 'UniformOutput', false);
+            logicalfind = cell2mat(celllogicalfind);
+            target(logicalfind) = [];
+            result = target;
         end
     end
 end
