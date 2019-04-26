@@ -1,7 +1,7 @@
 #+author: conao3
 #+date: <2018-10-25 Thu>
 
-[[https://github.com/conao3/coplot.m][https://raw.githubusercontent.com/conao3/files/master/header/png/coplot.m.png]]
+[[https://github.com/conao3/coplot.m][https://raw.githubusercontent.com/conao3/files/master/blob/headers/png/coplot.m.png]]
 [[https://github.com/conao3/coplot.m/blob/master/LICENSE][https://img.shields.io/github/license/conao3/coplot.m.svg?style=flat-square]]
 [[https://github.com/conao3/coplot.m/releases][https://img.shields.io/github/tag/conao3/coplot.m.svg?style=flat-square]]
 [[https://travis-ci.org/conao3/coplot.m][https://img.shields.io/travis/conao3/coplot.m/master.svg?style=flat-square]]
@@ -11,7 +11,7 @@
 [[https://join.slack.com/t/conao3-support/shared_invite/enQtNTg2MTY0MjkzOTU0LTFjOTdhOTFiNTM2NmY5YTE5MTNlYzNiOTE2MTZlZWZkNDEzZmRhN2E0NjkwMWViZTZiYjA4MDUxYTUzNDZiNjY][https://img.shields.io/badge/chat-on_slack-blue.svg?logo=slack&style=flat-square]]
 
 * Table of Contents
-- [[#background][Background]]
+- [[#description][Description]]
 - [[#install][Install]]
 - [[#usage][Usage]]
   - [[#basic][Basic]]
@@ -23,11 +23,12 @@
     - [[#class-diagram][Class diagram]]
   - [[#license][License]]
   - [[#author][Author]]
-  - [[#contributor][Contributor]]
+  - [[#contributors][Contributors]]
 
-* Background
-coplot is blilliant plot tool for MATLAB.
-shortest code to plot data with MATLAB.
+* Description
+~coplot.m~ is blilliant plot tool for MATLAB.
+
+Get MATLAB's beautiful plot figures from data csv.
 
 * Install
 #+begin_src sh
@@ -72,5 +73,5 @@ Feel free to send PR!
 ** Author
 - Naoya Yamashita ([[https://github.com/conao3][conao3]])
 
-** Contributor
+** Contributors
 - Not yet... Now send PR and add your name!!
